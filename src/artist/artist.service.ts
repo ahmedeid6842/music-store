@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { Artist } from './artist.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -13,6 +13,12 @@ export class ArtistService {
     constructor(@InjectRepository(Artist) private artistRepo: Repository<Artist>, private userService: UsersService) { }
 
     async createArtist(artist: CreateArtistDto, user: UserDto) {
+        const artistExists = await this.artistRepo.findOne({ where: { user } });
+        
+        if(artistExists) {
+            throw new BadRequestException('Artist already exists');
+        }
+
         const newArtist = this.artistRepo.create({ ...artist, user });
         return await this.artistRepo.save(newArtist);
     }
