@@ -5,12 +5,12 @@ import { Repository } from 'typeorm';
 import { CreateAlbumDto } from './dto/create-album.dto';
 import { Artist } from 'src/artist/artist.entity';
 import { ArtistService } from 'src/artist/artist.service';
+import { GetAlbumQueryDto } from './dto/get-album-query.dto';
 
 @Injectable()
 export class AlbumService {
     constructor(
         @InjectRepository(Album) private readonly albumRepo: Repository<Album>,
-        private readonly artistService: ArtistService
     ) { }
 
     async createAlbum(albumBody: CreateAlbumDto, artist: Artist) {
@@ -19,5 +19,7 @@ export class AlbumService {
         return await this.albumRepo.save(album);
     }
 
-
+    async getAlbums(query: GetAlbumQueryDto) {
+        return "albums";
+    }
 }
