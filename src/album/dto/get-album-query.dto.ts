@@ -10,16 +10,20 @@ export class GetAlbumQueryDto extends PartialAlbumDto {
     @IsInt()
     @IsOptional()
     @Min(1)
-    page?: number;
+    page?: number = 1;
 
     @IsNumber()
     @IsInt()
     @IsOptional()
     @Min(1)
-    limit?: number;
+    limit?: number = 10;
 
     @IsString()
     @IsOptional()
     @IsIn(['ASC', 'DESC'])
-    sort?: 'ASC' | 'DESC';
+    sortOrder?: 'ASC' | 'DESC';
+
+    @IsString()
+    @IsOptional()
+    sortField?: string;
 }
