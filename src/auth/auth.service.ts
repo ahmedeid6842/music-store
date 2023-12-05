@@ -5,11 +5,17 @@ import * as bcrypt from 'bcrypt';
 import { customAlphabet } from 'nanoid';
 import { EmailService } from 'src/email/email.service';
 import { LoginUserDto } from './dto/login-user.dto';
+import { JwtService } from "@nestjs/jwt"
+
 
 
 @Injectable()
 export class AuthService {
-    constructor(private readonly userService: UsersService, private readonly emailService: EmailService) { }
+    constructor(
+        private readonly userService: UsersService,
+        private readonly emailService: EmailService,
+        private readonly jwtService: JwtService
+    ) { }
 
     async register({ email, password, userName }: CreateUserDto) {
         // check if user email is unique
@@ -80,9 +86,23 @@ export class AuthService {
     }
 
     async sendResetPasswordEmail(userData: any) {
-    
+        const [user] = await this.userService.find(userData.email, userData.userName);
+
+        if (!user) {
+            throw new NotFoundException(`user not found`)
+        }
+
+        const token = this.generateResetPasswordToken(user.id)
+        const resetPasswordUrl = process.env.HOW_URL || `${process.env.HOST}:${process.env.PORT}/auth/reset-password/${token}`
+
+        // sent reset password token.
+        // await this.emailService.sendResetPasswordEmail(user.email, resetPasswordUrl);
     }
-    
+
+    private generateResetPasswordToken(userId: string): string {
+        return this.jwtService.sign({ userId }, { expiresIn: '1h' })
+    }
+
     private generateVerificationCode(): string {
         const alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
         const codeLength = 6;
