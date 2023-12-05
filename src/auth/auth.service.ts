@@ -39,7 +39,10 @@ export class AuthService {
 
         return user;
     }
-
+    async verifyEmail(email: string, verificationCode: string) {
+    
+    }
+    
     private generateVerificationCode(): string {
         const alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
         const codeLength = 6;
