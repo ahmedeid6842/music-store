@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { EmailModule } from './email/email.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -15,7 +16,15 @@ import { EmailModule } from './email/email.module';
     database:"MusicStore",
     entities:["dist/**/*.entity{.ts,.js}"],
     synchronize:true,
-  }), AuthModule, EmailModule],
+  }), 
+  JwtModule.register({
+    global:true,
+    secret:"MusicStoreSecretKey",
+    signOptions:{
+      expiresIn:"1d"
+    }
+  }),
+  AuthModule, EmailModule],
   controllers: [AppController],
   providers: [AppService],
 })

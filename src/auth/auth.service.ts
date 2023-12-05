@@ -39,6 +39,7 @@ export class AuthService {
 
         return user;
     }
+    
     async verifyEmail(email: string, verificationCode: string) {
         const [user] = await this.userService.find(email);
 
