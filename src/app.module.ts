@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { EmailModule } from './email/email.module';
 import { JwtModule } from '@nestjs/jwt';
+import { ArtistModule } from './artist/artist.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -24,7 +25,7 @@ import { JwtModule } from '@nestjs/jwt';
       expiresIn: "1d"
     }
   }),
-    AuthModule, EmailModule],
+    AuthModule, EmailModule, ArtistModule],
   controllers: [AppController],
   providers: [AppService],
 })
