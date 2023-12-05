@@ -11,7 +11,8 @@ import { IsValidToken } from './middleware/is-valid-token.middleware';
 @Module({
   imports: [TypeOrmModule.forFeature([User]), EmailModule],
   providers: [UsersService, AuthService],
-  controllers: [AuthController]
+  controllers: [AuthController],
+  exports: [UsersService],
 })
 export class AuthModule {
   configure(consumer: MiddlewareConsumer) {
