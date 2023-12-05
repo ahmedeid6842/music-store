@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { UsersService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import * as bcrypt from 'bcrypt';
@@ -40,9 +40,27 @@ export class AuthService {
         return user;
     }
     async verifyEmail(email: string, verificationCode: string) {
-    
+        const [user] = await this.userService.find(email);
+
+        if (!user) {
+            throw new NotFoundException(`user not found`)
+        }
+
+        if (user.isVerified) {
+            throw new BadRequestException(`user already verified`)
+        }
+
+        if (user.verificationCode !== verificationCode) {
+            throw new BadRequestException(`invalid verification code`)
+        }
+
+        if (user.verificationCodeExpiresAt < new Date()) {
+            throw new BadRequestException(`verification code expired`)
+        }
+
+        return await this.userService.update(user.id, { isVerified: true, verificationCode: null, verificationCodeExpiresAt: null })
     }
-    
+
     private generateVerificationCode(): string {
         const alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
         const codeLength = 6;
