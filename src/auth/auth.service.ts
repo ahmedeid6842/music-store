@@ -3,11 +3,12 @@ import { UsersService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import * as bcrypt from 'bcrypt';
 import { customAlphabet } from 'nanoid';
+import { EmailService } from 'src/email/email.service';
 
 
 @Injectable()
 export class AuthService {
-    constructor(private readonly userService: UsersService) { }
+    constructor(private readonly userService: UsersService, private readonly emailService: EmailService) { }
 
     async register({ email, password, userName }: CreateUserDto) {
         // check if user email is unique
@@ -22,15 +23,19 @@ export class AuthService {
             throw new BadRequestException(`this userName: ${userName} already exist`)
         }
 
+        // generate salts
         const salt = await bcrypt.genSalt()
         password = await bcrypt.hash(password, salt);
 
+        // generate verification code and expiration
         const verificationCode = this.generateVerificationCode();
         const verificationCodeExpiresAt = this.generateVerificationCodeExpiration();
 
+        //create user
         const user = await this.userService.create(email, userName, password, verificationCode, verificationCodeExpiresAt);
 
         //sent email verification code
+        await this.emailService.sendVerificationEmail(email, verificationCode);
 
         return user;
     }
