@@ -3,21 +3,17 @@ import { Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColum
 
 @Entity({ name: 'albums' })
 export class Album {
-  @PrimaryGeneratedColumn("uuid")
-  id: string;
+    @PrimaryGeneratedColumn("uuid")
+    id: string;
 
-  @Column()
-  title: string;
+    @Column({ length: 100, nullable: false })
+    title: string;
 
-  @Column({ name: 'artwork_url' })
-  artworkUrl: string;
+    @Column({ name: 'artwork_url', nullable: false })
+    artworkUrl: string;
 
 
-  @ManyToMany(() => Artist)
-  @JoinTable({
-    name: 'artist_albums',
-    joinColumn: { name: 'album_id', referencedColumnName: 'id' },
-    inverseJoinColumn: { name: 'artist_id', referencedColumnName: 'id' },
-  })
-  artists: Artist[];
+    @ManyToMany(() => Artist, artist => artist.albums)
+    @JoinTable()  
+    artists: Artist[];
 }
