@@ -29,6 +29,7 @@
     "class-validator": "^0.14.0",
     "mysql2": "^3.6.5",
     "nanoid": "^5.0.4",
+    "nodemailer": "^6.9.7",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
     "typeorm": "^0.3.17"
