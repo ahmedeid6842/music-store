@@ -4,6 +4,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import * as bcrypt from 'bcrypt';
 import { customAlphabet } from 'nanoid';
 import { EmailService } from 'src/email/email.service';
+import { LoginUserDto } from './dto/login-user.dto';
 
 
 @Injectable()
@@ -39,7 +40,7 @@ export class AuthService {
 
         return user;
     }
-    
+
     async verifyEmail(email: string, verificationCode: string) {
         const [user] = await this.userService.find(email);
 
@@ -60,6 +61,22 @@ export class AuthService {
         }
 
         return await this.userService.update(user.id, { isVerified: true, verificationCode: null, verificationCodeExpiresAt: null })
+    }
+
+    async login(userCredentials: LoginUserDto) {
+        const user = await this.userService.find(userCredentials.email, userCredentials.userName);
+
+        if (!user.length) {
+            throw new NotFoundException(`user not found`)
+        }
+
+        const verifiedUser = await bcrypt.compare(userCredentials.password, user[0].password)
+
+        if (!verifiedUser) {
+            throw new BadRequestException('incorrect password')
+        }
+
+        return user[0];
     }
 
     private generateVerificationCode(): string {
