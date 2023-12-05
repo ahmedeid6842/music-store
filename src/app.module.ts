@@ -1,11 +1,10 @@
-import { MiddlewareConsumer, Module } from '@nestjs/common';
+import {  Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { EmailModule } from './email/email.module';
 import { JwtModule } from '@nestjs/jwt';
-import { CurrentUserMiddleware } from './auth/middleware/cuurent-user.middleware';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -29,10 +28,4 @@ import { CurrentUserMiddleware } from './auth/middleware/cuurent-user.middleware
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(CurrentUserMiddleware)
-      .forRoutes("*");
-  }
-}
+export class AppModule {}
