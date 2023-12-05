@@ -79,6 +79,10 @@ export class AuthService {
         return user[0];
     }
 
+    async sendResetPasswordEmail(userData: any) {
+    
+    }
+    
     private generateVerificationCode(): string {
         const alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
         const codeLength = 6;

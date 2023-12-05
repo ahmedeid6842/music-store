@@ -30,4 +30,9 @@ export class AuthController {
 
         return user
     }
+
+    @Post('/reset-password')
+    async askResetPassword(@Body() body: any) {
+        await this.authService.sendResetPasswordEmail(body)
+    }
 }
