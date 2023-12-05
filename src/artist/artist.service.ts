@@ -6,15 +6,18 @@ import { CreateArtistDto } from './dto/create-artist.dto';
 import { UserDto } from 'src/auth/dto/user.dto';
 import { GetArtistQueryDto } from './dto/get-artist-query.dto';
 import { PartialArtistDto } from './dto/partial-artist.dto';
+import { UsersService } from 'src/auth/user.service';
 
 @Injectable()
 export class ArtistService {
-    constructor(@InjectRepository(Artist) private artistRepo: Repository<Artist>) { }
+    constructor(@InjectRepository(Artist) private artistRepo: Repository<Artist>, private userService: UsersService) { }
 
     async createArtist(artist: CreateArtistDto, user: UserDto) {
-        const newArist = this.artistRepo.create({ ...artist, user });
-        return await this.artistRepo.save(newArist);
+        const newArtist = this.artistRepo.create({ ...artist, user });
+        return await this.artistRepo.save(newArtist);
     }
+
+
 
     async getArtist(query: GetArtistQueryDto) {
         let queryBuilder = await this.artistRepo.createQueryBuilder('artist');
@@ -22,6 +25,10 @@ export class ArtistService {
         // Build query dynamically based on provided parameters in GetArtistQueryDto
         if (query.artistId) {
             queryBuilder = queryBuilder.where('artist.id = :artistId', { artistId: query.artistId });
+        }
+
+        if (query.userId) {
+            queryBuilder = queryBuilder.andWhere('artist.userId=:userId', { userId: query.userId })
         }
 
         if (query.name) {
