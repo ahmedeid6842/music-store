@@ -20,6 +20,6 @@ export class ArtistController {
 
     @Get("/")
     async getArtist(@Query() query: GetArtistQueryDto) {
-        return await this.artistService.getArtist();
+        return await this.artistService.getArtist(query);
     }
 }

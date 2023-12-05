@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateArtistDto } from './dto/create-artist.dto';
 import { UserDto } from 'src/auth/dto/user.dto';
+import { GetArtistQueryDto } from './dto/get-artist-query.dto';
 
 @Injectable()
 export class ArtistService {
@@ -14,7 +15,22 @@ export class ArtistService {
         return await this.artistRepo.save(newArist);
     }
 
-    async getArtist() {
-        return await this.artistRepo.find();
+    async getArtist(query: GetArtistQueryDto) {
+        let queryBuilder = await this.artistRepo.createQueryBuilder('artist');
+
+        // Build query dynamically based on provided parameters in GetArtistQueryDto
+        if (query.artistId) {
+            queryBuilder = queryBuilder.where('artist.id = :artistId', { artistId: query.artistId });
+        }
+
+        if (query.name) {
+            queryBuilder = queryBuilder.andWhere('artist.name LIKE :name', { name: `%${query.name}%` });
+        }
+
+        if (query.bio) {
+            queryBuilder = queryBuilder.andWhere('artist.bio LIKE :bio', { bio: `%${query.bio}%` });
+        }
+
+        return await queryBuilder.getMany();
     }
 }
