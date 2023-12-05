@@ -13,4 +13,8 @@ export class ArtistService {
         const newArist = this.artistRepo.create({ ...artist, user });
         return await this.artistRepo.save(newArist);
     }
+
+    async getArtist() {
+        return await this.artistRepo.find();
+    }
 }
