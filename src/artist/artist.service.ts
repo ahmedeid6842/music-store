@@ -9,7 +9,8 @@ import { UserDto } from 'src/auth/dto/user.dto';
 export class ArtistService {
     constructor(@InjectRepository(Artist) private artistRepo: Repository<Artist>) { }
 
-    async createArtist(body: CreateArtistDto, user: UserDto) {
-        //create artist 
+    async createArtist(artist: CreateArtistDto, user: UserDto) {
+        const newArist = this.artistRepo.create({ ...artist, user });
+        return await this.artistRepo.save(newArist);
     }
 }
