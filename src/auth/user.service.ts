@@ -12,4 +12,12 @@ export class UsersService {
 
         return this.userRepo.save(user);
     }
+
+    findOne(id: string) {
+        if (!id) { 
+            return null;
+        }
+
+        return this.userRepo.findOne({ where: { id } })
+    }
 }
