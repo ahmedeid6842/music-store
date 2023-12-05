@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Artist } from "src/artist/artist.entity";
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "typeorm";
 
 
 @Entity()
@@ -23,4 +24,7 @@ export class User {
 
     @Column({ name: "verification_code_expires_at", type: "timestamp", nullable: true })
     verificationCodeExpiresAt: Date;
+
+    @OneToOne(() => Artist, artist => artist.user)
+    artist: Artist;
 }

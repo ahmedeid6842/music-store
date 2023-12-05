@@ -23,17 +23,17 @@ export class AuthController {
     @UseGuards(NotLoggedGuard)
     async verifyEmail(@Body() { email, verificationCode }: VerifyEmailDto, @Session() session: any) {
         const user = await this.authService.verifyEmail(email, verificationCode);
-        
+
         session.userId = user.id;
-        
+
         return user;
     }
-  
+
     @Post('login')
     @UseGuards(NotLoggedGuard)
     async login(@Body() body: LoginUserDto, @Session() session: any) {
         const user = await this.authService.login(body);
-
+        
         session.userId = user.id;
 
         return user
@@ -48,5 +48,11 @@ export class AuthController {
     async resetPassword(@Param('token') token: string, @Body() body: ResetPasswordDto) {
         const user = await this.authService.resetPassword(token, body.password)
         return user;
+    }
+
+    @Post('/logout')
+    signOut(@Session() session: any) {
+        session.userId = null;
+        session.artistId = null;
     }
 }
