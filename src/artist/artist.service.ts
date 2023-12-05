@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Artist } from './artist.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateArtistDto } from './dto/create-artist.dto';
 import { UserDto } from 'src/auth/dto/user.dto';
 import { GetArtistQueryDto } from './dto/get-artist-query.dto';
+import { PartialArtistDto } from './dto/partial-artist.dto';
 
 @Injectable()
 export class ArtistService {
@@ -32,5 +33,15 @@ export class ArtistService {
         }
 
         return await queryBuilder.getMany();
+    }
+
+    async updateArtist(artist: PartialArtistDto, user: UserDto) {
+        const artistToUpdate = await this.artistRepo.findOne({ where: { user } });
+        if (!artistToUpdate) {
+            throw new NotFoundException('Artist not found');
+        }
+
+        Object.assign(artistToUpdate, artist);
+        return await this.artistRepo.save(artistToUpdate);
     }
 }
