@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Album } from './album.entity';
 import { Repository } from 'typeorm';
@@ -73,7 +73,7 @@ export class AlbumService {
         const album = await this.albumRepo.findOne({ where: { id: albumId } });
 
         if (!album) {
-            return null;
+            throw new NotFoundException('Album not found');
         }
 
         await this.albumRepo.delete(albumId);

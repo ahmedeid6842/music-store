@@ -1,4 +1,4 @@
-import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import { CanActivate, ExecutionContext, Injectable, NotFoundException } from '@nestjs/common';
 import { AlbumService } from '../album.service';
 
 @Injectable()
@@ -16,7 +16,7 @@ export class AlbumOwnerGuard implements CanActivate {
         const albums = await this.albumService.getAlbums({ id: albumId });
 
         if (albums.totalCount == 0) {
-            return false;
+            throw new NotFoundException('Album not found');
         }
 
         // Assuming currentUser is stored in the request object
