@@ -68,4 +68,16 @@ export class AlbumService {
 
         return await this.albumRepo.save(album);
     }
+
+    async deleteAlbum(albumId: string) {
+        const album = await this.albumRepo.findOne({ where: { id: albumId } });
+
+        if (!album) {
+            return null;
+        }
+
+        await this.albumRepo.delete(albumId);
+
+        return album;
+    }
 }
