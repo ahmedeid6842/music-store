@@ -22,6 +22,8 @@ export class AlbumService {
     async getAlbums({ id, title, sortField, sortOrder, artworkUrl, page, limit }: GetAlbumQueryDto) {
         const queryBuilder = this.albumRepo.createQueryBuilder('albums');
 
+        queryBuilder.leftJoinAndSelect('albums.artists', 'artists');
+
         if (id) {
             queryBuilder.andWhere('albums.id = :id', { id });
         }
@@ -44,7 +46,8 @@ export class AlbumService {
             .skip((page - 1) * limit)
             .take(limit)
             .getMany();
-
+        console.log(albums);
+        
         return {
             albums,
             totalCount,
