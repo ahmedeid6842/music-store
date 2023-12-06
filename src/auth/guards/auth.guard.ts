@@ -5,6 +5,7 @@ import { ForbiddenException } from "@nestjs/common";
 export class AuthGuard extends BaseGuard {
 
   canActivateInternal(request: Request) {
+    console.log(request.session)
     if (!request.session.userId) {
       return false;
     }
