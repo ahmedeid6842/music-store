@@ -23,8 +23,6 @@ export class ArtistService {
         return await this.artistRepo.save(newArtist);
     }
 
-
-
     async getArtist(query: GetArtistQueryDto) {
         let queryBuilder = await this.artistRepo.createQueryBuilder('artist');
 

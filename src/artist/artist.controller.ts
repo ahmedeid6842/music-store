@@ -8,7 +8,6 @@ import { CreateArtistDto } from './dto/create-artist.dto';
 import { GetArtistQueryDto } from './dto/get-artist-query.dto';
 import { PartialArtistDto } from './dto/partial-artist.dto';
 
-@Serialize(UserDto)
 @Controller('artist')
 export class ArtistController {
     constructor(private artistService: ArtistService) { }
