@@ -18,6 +18,6 @@ export class Album {
     @JoinTable()
     artists: Artist[];
 
-    @OneToMany(type => Song, song => song.album)
+    @OneToMany(type => Song, song => song.album, { cascade: true })
     songs: Song[];
 }

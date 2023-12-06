@@ -8,7 +8,7 @@ export class Song {
   id: number;
 
   @Column({ length: 255 })
-  title: string; 
+  title: string;
 
   @Column()
   duration: number;
@@ -16,6 +16,6 @@ export class Song {
   @ManyToOne(() => Album, album => album.songs, { onDelete: "CASCADE" })
   album: Album;
 
-  @ManyToMany(type => Artist, artist => artist.songs)
-  artists: Artist[];
+  @ManyToOne(type => Artist, artist => artist.songs, { onDelete: "CASCADE" })
+  artists: Artist;
 }
