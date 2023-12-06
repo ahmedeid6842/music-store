@@ -7,6 +7,7 @@ import { EmailModule } from './email/email.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ArtistModule } from './artist/artist.module';
 import { AlbumModule } from './album/album.module';
+import { SongModule } from './song/song.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -26,7 +27,7 @@ import { AlbumModule } from './album/album.module';
       expiresIn: "1d"
     }
   }),
-    AuthModule, EmailModule, ArtistModule, AlbumModule],
+    AuthModule, EmailModule, ArtistModule, AlbumModule, SongModule],
   controllers: [AppController],
   providers: [AppService],
 })
