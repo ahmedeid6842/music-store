@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreateSongDto } from './dto/create-song.dto';
 import { Artist } from 'src/artist/artist.entity';
 import { GetSongQueryDto } from './dto/get-song-query.dto';
+import { PartialSongDto } from './dto/partial-song.dto';
 
 @Injectable()
 export class SongService {
@@ -15,7 +16,7 @@ export class SongService {
         return await this.songRepo.save(song);
     }
 
-    async getSongs({ page, limit, id, albumId, title, sortField, sortOrder, artistId }: GetSongQueryDto) {
+    async getSongs({ page, limit, id, albumId, title, sortField, sortOrder, artistId, duration }: GetSongQueryDto) {
         const skip = (page - 1) * limit || 0;
 
         const queryBuilder = this.songRepo.createQueryBuilder('song');
@@ -38,6 +39,10 @@ export class SongService {
             queryBuilder.andWhere('song.title LIKE :title', { title: `%${title}%` });
         }
 
+        if (duration) {
+            queryBuilder.andWhere('song.duration = :duration', { duration })
+        }
+
         if (sortField && sortOrder) {
             queryBuilder.orderBy(`song.${sortField}`, sortOrder);
         }
@@ -57,4 +62,17 @@ export class SongService {
             totalPages: Math.ceil(totalCount / limit)
         };
     }
+
+    async updateSong(songId: string, newSong: PartialSongDto) {
+        const song = await this.songRepo.findOne({ where: { id: songId } })
+
+        if (!song) {
+            return null;
+        }
+
+        Object.assign(song, newSong);
+        return await this.songRepo.save(song)
+    }
+
+
 }
