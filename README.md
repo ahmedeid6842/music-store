@@ -20,6 +20,7 @@
 - [📐 UML Diagram](#uml-diagram)
 - [👥 Author](#author)
 - [🤝 Contributing](#contribution)
+- [👀 Kanban Board](#kanban-board) 
 - [⭐️ Show Your Support](#support)
 - [🔭 Up Next](#up-next)
 - [💎 Lessons Learned](#lessons-learned)
@@ -282,6 +283,11 @@ classDiagram
 ## 🤝 Contributing <a name="contribution"></a>
 
 We're always looking to improve this project! 🔍 If you notice any issues or have ideas for new features, please don't hesitate to submit a [pull request](https://github.com/ahmedeid6842/music-store/pulls) 🙌 or create a [new issue](https://github.com/ahmedeid6842/music-store/issues/new) 💡. Your contribution will help make this project even better! ❤️ 💪
+
+## 👀 Kanban Board <a name="kanban-board"></a>
+You can check my kanban board from [Here](https://github.com/users/ahmedeid6842/projects/4) to see how I split this project into tasks and mange them.
+
+<img src="https://github.com/ahmedeid6842/search-engine/assets/57197702/2280f06c-1cfa-447c-819e-cfa0deac6711" align="center" alt="kanban board image"/>
 
 ## ⭐️ Show your support <a name="support"></a>
 
