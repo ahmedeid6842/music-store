@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Song } from './song.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -74,5 +74,15 @@ export class SongService {
         return await this.songRepo.save(song)
     }
 
+    async deleteSong(songId: string) {
+        const song = await this.songRepo.findOne({ where: { id: songId } })
 
+        if (!song) {
+            throw new NotFoundException("Song not found")
+        }
+
+        await this.songRepo.delete(songId);
+
+        return song;
+    }
 }
