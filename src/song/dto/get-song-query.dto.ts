@@ -1,7 +1,7 @@
 import { IsIn, IsInt, IsNumber, IsOptional, IsString, IsUUID, Length, Min } from "class-validator";
 import { Transform } from "class-transformer";
 
-export class GetAlbumQueryDto {
+export class GetSongQueryDto {
     @IsUUID('4')
     @IsOptional()
     id?: string;
@@ -9,6 +9,10 @@ export class GetAlbumQueryDto {
     @IsUUID('4')
     @IsOptional()
     albumId?: string;
+
+    @IsUUID('4')
+    @IsOptional()
+    artistId?: string;
 
     @IsString()
     @IsOptional()
