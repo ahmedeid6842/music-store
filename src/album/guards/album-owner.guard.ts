@@ -29,6 +29,11 @@ export class AlbumOwnerGuard implements CanActivate {
 
         // Assuming currentUser is stored in the request object
         const currentArtist = request.currentArtist;
+
+        if(!currentArtist){
+            return false;
+        }
+        
         if (albums?.albums[0].artists[0].id !== currentArtist.id) {
             return false;
         }
