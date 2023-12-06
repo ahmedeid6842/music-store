@@ -296,7 +296,7 @@ If you find this project helpful, I would greatly appreciate it if you could lea
 - [ ] Move from monolithic to microservices architecture.
 - [ ] Apply Background jobs and task scheduling Use a job queue system like Bull or Agenda to handle time-consuming tasks.
 - [ ] Support user media like image and upload songs.
-
+- [ ] Deploy the REST API.
 ## 💎 Lessons Learned <a name="lessons-learned"></a> 
 
 1. Secure user access with effective authentication and authorization.
