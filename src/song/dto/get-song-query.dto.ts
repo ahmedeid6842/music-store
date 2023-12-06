@@ -1,7 +1,8 @@
 import { IsIn, IsInt, IsNumber, IsOptional, IsString, IsUUID, Length, Min } from "class-validator";
 import { Transform } from "class-transformer";
+import { PartialSongDto } from "./partial-song.dto";
 
-export class GetSongQueryDto {
+export class GetSongQueryDto extends PartialSongDto {
     @IsUUID('4')
     @IsOptional()
     id?: string;
@@ -13,11 +14,6 @@ export class GetSongQueryDto {
     @IsUUID('4')
     @IsOptional()
     artistId?: string;
-
-    @IsString()
-    @IsOptional()
-    @Length(1, 255)
-    title?: string;
 
     @IsNumber()
     @IsInt()
