@@ -314,3 +314,7 @@ I am deeply grateful to Alexapps for entrusting me with this project. The opport
 This project is licensed under the MIT License - you can click here to have more details [MIT](./LICENSE) licensed.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<div align="center">
+  <img src="https://github.com/ahmedeid6842/music-store/assets/57197702/fd57dae3-2f61-44a8-bc7f-cfc9a283af80"/>
+</div>
