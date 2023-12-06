@@ -6,6 +6,7 @@ import { CreateAlbumDto } from './dto/create-album.dto';
 import { Artist } from 'src/artist/artist.entity';
 import { ArtistService } from 'src/artist/artist.service';
 import { GetAlbumQueryDto } from './dto/get-album-query.dto';
+import { PartialAlbumDto } from './dto/partial-album.dto';
 
 @Injectable()
 export class AlbumService {
@@ -20,6 +21,8 @@ export class AlbumService {
     }
 
     async getAlbums({ id, title, sortField, sortOrder, artworkUrl, page, limit }: GetAlbumQueryDto) {
+        const skip = (page - 1) * limit || 0;
+
         const queryBuilder = this.albumRepo.createQueryBuilder('albums');
 
         queryBuilder.leftJoinAndSelect('albums.artists', 'artists');
@@ -41,18 +44,28 @@ export class AlbumService {
         }
 
         const totalCount = await queryBuilder.getCount();
-
         const albums = await queryBuilder
-            .skip((page - 1) * limit)
+            .skip(skip)
             .take(limit)
             .getMany();
-        console.log(albums);
-        
+
         return {
             albums,
             totalCount,
             currentPage: page,
             totalPages: Math.ceil(totalCount / limit),
         };
+    }
+
+    async updateAlbum(albumId: string, albumBody: PartialAlbumDto) {
+        const album = await this.albumRepo.findOne({ where: { id: albumId } });
+
+        if (!album) {
+            return null;
+        }
+
+        Object.assign(album, albumBody);
+
+        return await this.albumRepo.save(album);
     }
 }
