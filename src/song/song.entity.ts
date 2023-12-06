@@ -17,5 +17,5 @@ export class Song {
   album: Album;
 
   @ManyToOne(type => Artist, artist => artist.songs, { onDelete: "CASCADE" })
-  artists: Artist;
+  artist: Artist;
 }

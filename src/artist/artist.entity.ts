@@ -22,6 +22,6 @@ export class Artist {
     @JoinTable({ name: 'artist_album' })
     albums: Album[];
 
-    @OneToMany(type => Song, song => song.artists, { cascade: true })
+    @OneToMany(type => Song, song => song.artist, { cascade: true })
     songs: Song[];
 }

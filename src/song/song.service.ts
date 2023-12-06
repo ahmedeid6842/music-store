@@ -10,7 +10,11 @@ export class SongService {
     constructor(@InjectRepository(Song) private songRepo: Repository<Song>) { }
 
     async createSong(newSong: CreateSongDto, artist: Artist) {
-        // const song = this.songRepo.create({ ...newSong, album: { id: newSong.albumId }, artists: [artist] });
-        // return await this.songRepo.save(song);
+        const song = this.songRepo.create({ ...newSong, album: { id: newSong.albumId }, artist });
+        return await this.songRepo.save(song);
+    }
+
+    async getSongs(query: any) {
+       
     }
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
 import { SongService } from './song.service';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { ArtistGuard } from 'src/artist/guards/artist.guard';
@@ -15,5 +15,10 @@ export class SongController {
     @Post()
     async createSong(@Body() body: CreateSongDto, @CurrentArtist() artist: Artist) {
         return await this.songService.createSong(body, artist);
+    }
+
+    @Get("/")
+    async getSongs(@Query() query: any) {
+        return await this.songService.getSongs(query);
     }
 }
