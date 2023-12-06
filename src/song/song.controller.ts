@@ -6,6 +6,7 @@ import { CreateSongDto } from './dto/create-song.dto';
 import { CurrentArtist } from 'src/artist/decorators/current-artist.decorator';
 import { Artist } from 'src/artist/artist.entity';
 import { GetSongQueryDto } from './dto/get-song-query.dto';
+import { AlbumOwnerGuard } from 'src/album/guards/album-owner.guard';
 
 @Controller('song')
 export class SongController {
@@ -13,6 +14,7 @@ export class SongController {
 
     @UseGuards(AuthGuard)
     @UseGuards(ArtistGuard)
+    @UseGuards(AlbumOwnerGuard)
     @Post()
     async createSong(@Body() body: CreateSongDto, @CurrentArtist() artist: Artist) {
         return await this.songService.createSong(body, artist);

@@ -8,6 +8,7 @@ import { ArtistModule } from 'src/artist/artist.module';
 @Module({
   imports: [TypeOrmModule.forFeature([Album]), ArtistModule],
   providers: [AlbumService],
-  controllers: [AlbumController]
+  controllers: [AlbumController],
+  exports:[AlbumService]
 })
 export class AlbumModule { }
