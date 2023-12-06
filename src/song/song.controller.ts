@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { SongService } from './song.service';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { ArtistGuard } from 'src/artist/guards/artist.guard';
@@ -34,4 +34,13 @@ export class SongController {
     async updateSong(@Param("songId") songId: string, @Body() newSong: PartialSongDto) {
         return await this.songService.updateSong(songId, newSong)
     }
+
+    @Delete("/:songId")
+    @UseGuards(AuthGuard)
+    @UseGuards(ArtistGuard)
+    @UseGuards(SongOwnerGuard)
+    async deleteSong(@Param("songId") songId: string) {
+        return await this.songService.deleteSong(songId)
+    }
+
 }
