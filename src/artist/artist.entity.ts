@@ -1,6 +1,7 @@
 import { Album } from "src/album/album.entity";
 import { User } from "src/auth/user.entity";
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Song } from "src/song/song.entity";
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Artist {
@@ -18,6 +19,9 @@ export class Artist {
     user: User;
 
     @OneToMany(() => Album, album => album.artists)
-    @JoinTable({ name: 'artist_album' }) // Define the JoinTable name explicitly
+    @JoinTable({ name: 'artist_album' })
     albums: Album[];
+
+    @OneToMany(type => Song, song => song.artist, { cascade: true })
+    songs: Song[];
 }

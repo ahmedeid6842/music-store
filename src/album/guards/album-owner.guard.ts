@@ -7,7 +7,15 @@ export class AlbumOwnerGuard implements CanActivate {
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
         const request = context.switchToHttp().getRequest();
-        const { albumId } = request.params;
+
+        let albumId;
+        if (request.params.albumId) {
+            albumId = request.params.albumId
+        } else if (request.body.albumId) {
+            albumId = request.body.albumId
+        } else {
+            return false;
+        }
 
         if (!albumId) {
             return false;
