@@ -100,6 +100,7 @@ The application will be accessible at http://localhost:3000.
 
 This section provides detailed documentation and examples for the API endpoints used in the **Music Store** backend project.
 You can Hit this [Link](https://documenter.getpostman.com/view/10444163/2s9YeN18cS#26b3aaa9-f8c1-40bf-b570-2922aebb44e9) to view the documentation.
+![Screenshot from 2023-12-07 21-30-57](https://github.com/ahmedeid6842/music-store/assets/57197702/653cf61b-b477-4cb0-bc03-7e054cdf770b)
 
 ## 🏗️🔨 [Database ERD](https://drawsql.app/teams/microverse-114/diagrams/music-store) <a name="erd"></a>
 
