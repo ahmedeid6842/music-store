@@ -5,7 +5,9 @@
 <br>
 <br>
 
----
+<h1 align="center">Music Store</h1>
+
+
 ### 📑 Table of Contents
 - [📘 Introduction](#introduction)
 - [💻 Getting Started](#getting-started)
