@@ -36,11 +36,11 @@
 </p>
 
 <p align="center">
-  Welcome to **Music Store** API, a powerful and efficient REST API built with NestJS that serves as your ultimate solution for managing your music empire. With **Music Store** API, you can easily organize and control your artists, albums, and songs, creating a seamless and immersive musical experience for your users.
+  Welcome to Music Store API, a powerful and efficient REST API built with NestJS that serves as your ultimate solution for managing your music empire. With Music Store API, you can easily organize and control your artists, albums, and songs, creating a seamless and immersive musical experience for your users.
 </p>
 
 <p align="center">
-  **Music Store** API prioritizes the security and reliability of your music assets. The API implements robust authentication mechanisms, ensuring secure access to your music collection. With built-in security features, you can protect sensitive data and provide a safe environment for your users' musical journey.
+  Music Store API prioritizes the security and reliability of your music assets. The API implements robust authentication mechanisms, ensuring secure access to your music collection. With built-in security features, you can protect sensitive data and provide a safe environment for your users' musical journey.
 </p>
 
 ## 💻 Getting Started <a name="getting-started"></a>
