@@ -104,8 +104,6 @@ This section provides detailed documentation and examples for the API endpoints 
 You can Hit this [Link](https://documenter.getpostman.com/view/10444163/2s9YeN18cS#26b3aaa9-f8c1-40bf-b570-2922aebb44e9) to view the documentation.
 ![Screenshot from 2023-12-07 21-30-57](https://github.com/ahmedeid6842/music-store/assets/57197702/653cf61b-b477-4cb0-bc03-7e054cdf770b)
 
-## 🏗️🔨 [Database ERD](https://drawsql.app/teams/microverse-114/diagrams/music-store) <a name="erd"></a>
-
 ![ERD-V2](https://github.com/ahmedeid6842/music-store/assets/57197702/91ad8ec8-4047-4c38-8dc5-6b2f5b2907e6)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
